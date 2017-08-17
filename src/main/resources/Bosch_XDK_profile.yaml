@@ -1,0 +1,234 @@
+# Copyright 2016-17 Dell Inc. All rights reserved.
+name: "XDK"
+manufacturer: "Bosch"
+model: "XDK"
+labels: 
+  - "ble"
+  - "xdk"
+description: "Bosch XDK Cross Domain Development Kit with Bluetooth 4.0"
+
+deviceResources:   
+      -
+        name: AccelX
+        description: "X Axis Accelerometer Reading in G-Forces"
+        attributes:
+            { uuid: "67c41449-514a-4be0-a77f-49fbe27c5a1d" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true", scale: ".001"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "G"}     
+      -
+        name: AccelY
+        description: "Y Axis Accelerometer Reading in G-Forces"
+        attributes:
+            { uuid: "67c41459-514a-4be0-a77f-49fbe27c5a1d" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true", scale: ".001"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "G"}
+      -
+        name: AccelZ
+        description: "Z Axis Accelerometer Reading in G-Forces"
+        attributes:
+            { uuid: "67c41469-514a-4be0-a77f-49fbe27c5a1d" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true", scale: ".001"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "G"}
+
+      -
+        name: GyroX
+        description: "X Axis Gyroscope Reading in Degrees per second"
+        attributes:
+            { uuid: "5db3871c-c922-4966-8c49-8e72e15915db" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", scale: ".001", mask: "0xFFFF00000000", shift: "32", LSB: "true" }
+            units:
+             { type: "String", readWrite: "R", defaultValue: "deg/s"}     
+      -
+        name: GyroY
+        description: "Y Axis Gyroscope Reading in Degrees per second"
+        attributes:
+            { uuid: "5db3872c-c922-4966-8c49-8e72e15915db" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", scale: ".001", mask: "0xFFFF00000000", shift: "32", LSB: "true" }
+            units:
+             { type: "String", readWrite: "R", defaultValue: "deg/s"}
+      -
+        name: GyroZ
+        description: "Z Axis Gyroscope Reading in Degrees per second"
+        attributes:
+            { uuid: "5db3873c-c922-4966-8c49-8e72e15915db" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", scale: ".001", mask: "0xFFFF00000000", shift: "32", LSB: "true" }
+            units:
+             { type: "String", readWrite: "R", defaultValue: "deg/s"}        
+             
+      -
+        name: MagnetX
+        description: "X Axis Magnetometer Reading in microTesla"
+        attributes:
+            { uuid: "40ae37af-abf2-432b-8d76-35f117f38b8f" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "microTesla"}     
+      -
+        name: MagnetY
+        description: "Y Axis Magnetometer Reading in microTesla"
+        attributes:
+            { uuid: "40ae47af-abf2-432b-8d76-35f117f38b8f" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "microTesla"}
+      -
+        name: MagnetZ
+        description: "Z Axis Magnetometer Reading in microTesla"
+        attributes:
+            { uuid: "40ae57af-abf2-432b-8d76-35f117f38b8f" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "microTesla"} 
+      -
+        name: MagnetResist
+        description: "Magnetometer Resistance in magnetic reluctance"
+        attributes:
+            { uuid: "40ae67af-abf2-432b-8d76-35f117f38b8f" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "4", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "magnetic resistance"}              
+             
+      -
+        name: Luxometer
+        description: "Luxometer reading in millilux"
+        attributes:
+            { uuid: "8eea1fcd-ed54-4404-99c2-e5db331109a9" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "8", mask: "0xFFFFFFFF00000000000000000000000000000000", shift: 128, word: "4", signed: "false", LSB: "true" }
+            units:
+             { type: "String", readWrite: "R", defaultValue: "millilux"}
+
+      -
+        name: Barometer
+        description: "Barometric Pressure data in Pascals"
+        attributes:
+            { uuid: "8973ca48-8400-4067-aabf-e8f6ac29ceb8" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "8", word: "4", signed: "false", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "Pa"}
+      -
+        name: Temperature
+        description: "Temperature from Temperature Sensor in Degrees Fahrenheit"
+        attributes:
+            { uuid: "8973ca58-8400-4067-aabf-e8f6ac29ceb8" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "8", scale: ".0018", offset: "32", word: "4", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "Degrees Fahrenheit"} 
+      -
+        name: Humidity
+        description: "Humidity Level in % Relative Humidity"
+        attributes:
+            { uuid: "8973ca68-8400-4067-aabf-e8f6ac29ceb8" } 
+        properties:
+            value: 
+             { type: "Float", readWrite: "R", size: "8", word: "4", signed: "false", LSB: "true"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: "% Relative Humidity"}  
+
+      -
+        name: IOState
+        description: "Set IO State Initialization"
+        attributes:
+            { uuid: "f79ec2db-79fc-417d-b2de-759c62e1a5b6" } 
+        properties:
+            value: 
+             { type: "Integer", readWrite: "R", size: "2", defaultValue: "0"}
+            units:
+             { type: "String", readWrite: "R", defaultValue: ""}
+             
+resources:
+  -
+    name: Movement
+    get:
+      - { index: "1", operation: "get", resource: "Mvm" }
+      - { index: "2", operation: "get", object: "MagnetResist", parameter: "MagnetResist", property: "value" }
+      
+  -
+    name: Mvm
+    get:
+      - { index: "1", operation: "get", object: "AccelX", parameter: "AccelX", property: "value" }
+      - { index: "2", operation: "get", object: "AccelY", parameter: "AccelY", property: "value" }
+      - { index: "3", operation: "get", object: "AccelZ", parameter: "AccelZ", property: "value" }
+      - { index: "4", operation: "get", object: "GyroX", parameter: "GyroX", property: "value" }
+      - { index: "5", operation: "get", object: "GyroY", parameter: "GyroY", property: "value" }
+      - { index: "6", operation: "get", object: "GyroZ", parameter: "GyroZ", property: "value" }
+      - { index: "7", operation: "get", object: "MagnetX", parameter: "MagnetX", property: "value" }
+      - { index: "8", operation: "get", object: "MagnetY", parameter: "MagnetY", property: "value" }
+      - { index: "9", operation: "get", object: "MagnetZ", parameter: "MagnetZ", property: "value" }
+            
+  -
+    name: Luxometer
+    get:
+      - { index: "1", operation: "get", object: "Luxometer", parameter: "Luxometer", property: "value" }
+  -
+    name: Barometer
+    get:
+      - { index: "1", operation: "get", object: "Barometer", parameter: "Barometer", property: "value" }
+  -
+    name: Humidity
+    get:
+      - { index: "1", operation: "get", object: "Humidity", parameter: "Humidity", property: "value" }
+  -
+    name: Temperature
+    get:
+      - { index: "1", operation: "get", object: "Temperature", parameter: "Temperature", property: "value" }     
+  -
+    name: Query
+    get:
+      - { index: "1", operation: "get", resource: "Movement" }
+      - { index: "2", operation: "get", resource: "Luxometer" }
+      - { index: "4", operation: "get", resource: "Barometer" }
+      - { index: "5", operation: "get", resource: "Humidity" }
+      - { index: "6", operation: "get", resource: "Temperature" }
+  
+  -
+    name: Status
+    get:
+      - { index: "1", operation: "get", object: "IOState", parameter: "IOState", property: "value" }
+    set:
+      - { index: "1", operation: "set", object: "IOState", parameter: "IOState", property: "value" }
+            
+commands: 
+  - 
+    name: Query
+    get: 
+        path: "/api/v1/device/{deviceId}/Query"
+        responses: 
+          - 
+            code: "200"
+            description: "Query all device sensors."
+            expectedValues: ["AccelX","AccelY","AccelZ","GyroX","GyroY",
+            "GyroZ","MagnetX","MagnetY","MagnetZ","MagnetResist","Luxometer",
+            "Barometer","Humidity","Temperature"]
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []

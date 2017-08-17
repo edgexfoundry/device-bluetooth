@@ -1,0 +1,91 @@
+# Copyright 2017 Dell Inc. All rights reserved.
+name: "BLELight"
+manufacturer: "Texas Instruments"
+model: "CC2540TDK"
+labels: 
+  - "ble"
+  - "blelight"
+  - "light"
+description: "TIDC Bluetooth Low Energy Light"
+
+deviceResources:
+      -   
+        name: RedLEDPower
+        description: "Red Light Power Level (0-255)"
+        attributes: 
+            { uuid: "0000ffb5-0000-1000-8000-00805f9b34fb" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "RW", shift: "24", mask: "0xFF000000", size: "8", word: "1", LSB: "true", minimum: "0", maximum: "255" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Power Level" }
+      -   
+        name: GreenLEDPower
+        description: "Green Light Power Level (0-255)"
+        attributes: 
+            { uuid: "0000ffb5-0000-1000-8000-00805f9b34fb" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "RW", shift: "16", mask: "0x00FF0000", size: "8", word: "1", LSB: "true", minimum: "0", maximum: "255" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Power Level" }
+      -   
+        name: BlueLEDPower
+        description: "Blue Light Power Level (0-255)"
+        attributes: 
+            { uuid: "0000ffb5-0000-1000-8000-00805f9b34fb" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "RW", shift: "8", mask: "0x0000FF00", size: "8", word: "1", LSB: "true", minimum: "0", maximum: "255" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Power Level" }
+      -   
+        name: WhiteLEDPower
+        description: "White Light Power Level (0-255)"
+        attributes: 
+            { uuid: "0000ffb5-0000-1000-8000-00805f9b34fb" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "RW", mask: "0x000000FF", size: "8", word: "1", LSB: "true", minimum: "0", maximum: "255" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Power Level" }      
+             
+resources:
+  -
+    name: LEDControl
+    get:
+      - { operation: "get", object: "RedLEDPower", parameter: "RedLEDPower", secondary: ["GreenLEDPower","BlueLEDPower","WhiteLEDPower"], property: "value" }
+    set:
+      - { operation: "set", object: "RedLEDPower", parameter: "RedLEDPower", secondary: ["GreenLEDPower","BlueLEDPower","WhiteLEDPower"], property: "value", mappings: { "on": "100", "off": "0" } }
+      
+  -
+    name: Init 
+    set:
+      - { operation: "get", resource: "LEDControl" }      
+                   
+commands: 
+  - 
+    name: LEDControl
+    get: 
+        path: "/api/v1/device/{deviceId}/LEDControl"
+        responses: 
+          - 
+            code: "200"
+            description: "Get the LED states."
+            expectedValues: ["RedLEDPower","GreenLEDPower","BlueLEDPower","WhiteLEDPower"]
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []
+    put:
+        path: "/api/v1/device/{deviceId}/LEDControl"
+        parameterNames: ["RedLEDPower","GreenLEDPower","BlueLEDPower","WhiteLEDPower"]
+        responses:
+          - 
+            code: "204"
+            description: "Set the status."
+            expectedValues: []
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []
