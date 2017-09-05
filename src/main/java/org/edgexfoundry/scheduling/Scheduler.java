@@ -1,17 +1,15 @@
 /*******************************************************************************
  * Copyright 2016-2017 Dell Inc.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  * @microservice: device-bluetooth
  * @author: Tyler Cox, Dell
@@ -26,13 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+
 import javax.ws.rs.ClientErrorException;
+
 import org.edgexfoundry.controller.AddressableClient;
 import org.edgexfoundry.controller.DeviceServiceClient;
 import org.edgexfoundry.controller.ScheduleClient;
-import org.edgexfoundry.controller.ScheduleClientImpl;
 import org.edgexfoundry.controller.ScheduleEventClient;
-import org.edgexfoundry.controller.ScheduleEventClientImpl;
+import org.edgexfoundry.controller.impl.ScheduleClientImpl;
+import org.edgexfoundry.controller.impl.ScheduleEventClientImpl;
 import org.edgexfoundry.domain.SimpleSchedule;
 import org.edgexfoundry.domain.SimpleScheduleEvent;
 import org.edgexfoundry.domain.meta.Addressable;
@@ -40,7 +40,6 @@ import org.edgexfoundry.domain.meta.Schedule;
 import org.edgexfoundry.domain.meta.ScheduleEvent;
 import org.edgexfoundry.support.logging.client.EdgeXLogger;
 import org.edgexfoundry.support.logging.client.EdgeXLoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -52,8 +51,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableScheduling
 public class Scheduler {
-  private static final EdgeXLogger logger =
-      EdgeXLoggerFactory.getEdgeXLogger(Scheduler.class);
+  private static final EdgeXLogger logger = EdgeXLoggerFactory.getEdgeXLogger(Scheduler.class);
 
   // Client to fetch schedule events
   @Autowired
@@ -88,8 +86,8 @@ public class Scheduler {
   private HashMap<String, String> scheduleEventIdToScheduleIdMap;
 
   // the scheduleContextQueue is prioritized based upon the next execution time of each schedule
-  private PriorityQueue<ScheduleContext> scheduleContextQueue = new PriorityQueue<ScheduleContext>(
-      new Comparator<ScheduleContext>() {
+  private PriorityQueue<ScheduleContext> scheduleContextQueue =
+      new PriorityQueue<ScheduleContext>(new Comparator<ScheduleContext>() {
         @Override
         public int compare(ScheduleContext unit1, ScheduleContext unit2) {
           int result = Long.compare(unit1.getNextTime().toEpochSecond(),
@@ -124,8 +122,8 @@ public class Scheduler {
           // pop the schedule context off the queue
           ScheduleContext scheduleContext = scheduleContextQueue.remove();
 
-          logger.debug("executing schedule " + scheduleContext.getInfo()
-              + " at " + scheduleContext.getNextTime());
+          logger.debug("executing schedule " + scheduleContext.getInfo() + " at "
+              + scheduleContext.getNextTime());
 
           // run the events for the schedule
           scheduleEventExecutor.execute(scheduleContext.getScheduleEvents());
@@ -153,8 +151,8 @@ public class Scheduler {
     synchronized (scheduleContextQueue) {
       if (scheduleIdToScheduleContextMap.containsKey(schedule.getId())) {
         // not intended to be an error
-        logger.info("schedule context " + schedule.getId() + " '"
-            + schedule.getName() + "' already exists.");
+        logger.info("schedule context " + schedule.getId() + " '" + schedule.getName()
+            + "' already exists.");
       } else {
         // build a new schedule context
         ScheduleContext scheduleContext = new ScheduleContext(schedule);
@@ -164,8 +162,8 @@ public class Scheduler {
 
         // enqueue the context
         scheduleContextQueue.add(scheduleContext);
-        logger.info("created schedule context " + scheduleContext.getInfo()
-            + " initial start time " + scheduleContext.getNextTime().toString());
+        logger.info("created schedule context " + scheduleContext.getInfo() + " initial start time "
+            + scheduleContext.getNextTime().toString());
       }
     }
   }
@@ -185,8 +183,8 @@ public class Scheduler {
         // enqueue the context
         ScheduleContext scheduleContext = scheduleIdToScheduleContextMap.get(schedule.getId());
         scheduleContextQueue.add(scheduleContext);
-        logger.info("updated schedule " + scheduleContext.getInfo()
-            + " initial start time " + scheduleContext.getNextTime().toString());
+        logger.info("updated schedule " + scheduleContext.getInfo() + " initial start time "
+            + scheduleContext.getNextTime().toString());
       }
     }
   }
@@ -220,9 +218,9 @@ public class Scheduler {
       // get the schedule for the event
       Schedule schedule = scheduleClient.scheduleForName(scheduleEvent.getSchedule());
       if (schedule == null) {
-        logger.error("failed to add schedule event " + scheduleEvent.getId() + " '"
-            + scheduleEvent.getName() + "' " + "schedule '" + scheduleEvent.getSchedule()
-            + "' not found");
+        logger.error(
+            "failed to add schedule event " + scheduleEvent.getId() + " '" + scheduleEvent.getName()
+                + "' " + "schedule '" + scheduleEvent.getSchedule() + "' not found");
       } else {
         // ensure a schedule context exists
         createScheduleContext(schedule);
@@ -246,8 +244,8 @@ public class Scheduler {
       } else {
         Schedule schedule = scheduleClient.scheduleForName(scheduleEvent.getSchedule());
         if (schedule == null) {
-          logger.error("failed to update schedule event " + scheduleEvent.getName()
-              + " schedule " + scheduleEvent.getSchedule() + " not found");
+          logger.error("failed to update schedule event " + scheduleEvent.getName() + " schedule "
+              + scheduleEvent.getSchedule() + " not found");
         } else {
           // see if the event switched schedules
           if (scheduleId != schedule.getId()) {
@@ -275,7 +273,7 @@ public class Scheduler {
       }
     }
   }
-      
+
   public void removeScheduleEventById(String id) {
     synchronized (scheduleContextQueue) {
       String scheduleId;
