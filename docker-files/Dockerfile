@@ -52,6 +52,7 @@ COPY --from=0 *.jar $APP_DIR/$APP
 COPY --from=1 python/dist/$ARCHIVE $PY_APP_DIR/
 COPY docker-files/*.properties $APP_DIR/
 COPY docker-files/*.sh $APP_DIR/
+COPY deviceprofile_samples $APP_DIR/deviceprofile_samples
 
 RUN mkdir -p "$VIRTUAL_ENV"
 RUN virtualenv "$VIRTUAL_ENV"
