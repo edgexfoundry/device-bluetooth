@@ -22,7 +22,7 @@ COPY docker-files/pom.xml .
 
 RUN mvn dependency:copy -q
 
-FROM arm64v8/python:3.6-slim
+FROM arm64v8/python:2.7-slim
 
 RUN mkdir /python
 
