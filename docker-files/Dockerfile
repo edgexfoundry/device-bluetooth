@@ -68,8 +68,5 @@ EXPOSE $PY_APP_PORT
 #set the working directory
 WORKDIR $APP_DIR
 
-RUN ls $APP_DIR
-RUN ls $PY_APP_DIR
-
 #kick off the micro service
 ENTRYPOINT $APP_DIR/bluetooth.sh $APP -Djava.security.egd=file:/dev/urandom -Xmx100M $PY_APP $PY_APP_PORT
