@@ -23,6 +23,7 @@ package org.edgexfoundry.domain;
 import org.edgexfoundry.domain.BleAttribute;
 import org.edgexfoundry.domain.meta.DeviceObject;
 
+@SuppressWarnings("serial")
 public class BleObject extends DeviceObject {
 
   private BleAttribute attributes;
