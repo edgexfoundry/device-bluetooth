@@ -11,7 +11,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.edgexfoundry</groupId>
 	<artifactId>device-bluetooth</artifactId>
-	<version>0.5.0-SNAPSHOT</version>
+	<version>0.5.1-SNAPSHOT</version>
 	<name>device-bluetooth</name>
 	<description>EdgeX Foundry BLE Device Service - initially created by the EdgeX Foundry DS SDK</description>
 
